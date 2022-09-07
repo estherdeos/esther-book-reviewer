@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { BooksService } from '../services/books.service';
+import { take } from 'rxjs/operators'
 
 @Component({
   selector: 'app-main',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private readonly booksService: BooksService
+  ) { }
 
   ngOnInit(): void {
   }
 
+  getBooks (): void {
+    this.booksService.getBooks().pipe(take(1)).subscribe(
+      (res) => {
+        console.log(res)
+    })
+  }
 }
